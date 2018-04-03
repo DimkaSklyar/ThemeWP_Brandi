@@ -11,31 +11,21 @@ Template Name: Theme Page
 			<div class="carousel">
 				<div class="container">
 					<div class="section-caption">
-						<h2>Features</h2>
+						<h2><?php echo get_cat_name( 5 ) ?></h2>
 						<span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
 					</div>
 					<div class="owl-carousel carousel-features">
-						<div class="col features-item">
-							<span><i class="fa fa-leaf" aria-hidden="true"></i></span>
-							<h3>Branding</h3>
-							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-						</div>
-						<div class="col features-item">
-							<span><i class="fa fa-pencil" aria-hidden="true"></i></span>
-							<h3>Delovepment</h3>
-							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-						</div>
-						<div class="col features-item">
-							<span><i class="fa fa-hashtag" aria-hidden="true"></i></span>
-							<h3>Consulting</h3>
-							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-						</div>
-						<div class="col features-item">
-							<span><i class="fa fa-leaf" aria-hidden="true"></i></span>
-							<h3>Consulting</h3>
-							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
-						</div>
-					</div>
+						<?php
+							$args = array( 'posts_per_page' => 5, 'offset'=> 0, 'category_name' => 'features' );
+							$myposts = get_posts( $args );
+							foreach( $myposts as $post ) : setup_postdata($post); ?>
+							<div class="col features-item">
+								<span><i class="fa <?php echo get_post_meta($post->ID, 'font_awesome', true); ?>" aria-hidden="true"></i></span>
+								<h3><?php the_title(); ?></h3>
+								<?php the_content(); ?>
+							</div>
+						<?php endforeach; ?>
+						<?php wp_reset_postdata() ?>
 				</div>
 			</div>
 		</section>
@@ -43,10 +33,10 @@ Template Name: Theme Page
 		<section class="works">
 			<div class="container">
 				<div class="section-caption">
-					<h2>Works</h2>
+					<h2><?php echo get_cat_name( 8 ) ?></h2>
 					<span><i class="fa fa-heart-o" aria-hidden="true"></i></span>
 				</div>
-				<p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
+				<?php echo category_description(8); ?>
 			</div>
 			<div class="portfolio container-fluid">
 				<div id="portfolio-nav" >
@@ -57,70 +47,31 @@ Template Name: Theme Page
 					<button data-filter=".id-4">Photography</button>
 				</div>
 				<div id="portfolio-items" class="row" data-ref="mixitup-container">
-					<div class="mix id-1" data-ref="mixitup-target">
-						<img src="img/Layer 13.png" alt="Accrington Stanley">
+					<?php
+
+						$args = array( 'posts_per_page' => 8, 'offset'=> 0, 'category_name' => 'portfolio' );
+						$myposts = get_posts( $args );
+						foreach( $myposts as $post ) : setup_postdata($post); ?>
+
+						<div class="mix<?php
+							$tags = wp_get_post_tags($post->ID);
+							if ($tags) {
+								foreach ($tags as $tag) {
+									echo ' '. $tag->name;
+								}
+							}
+							?>" data-ref="mixitup-target">
+						<?php the_post_thumbnail(); ?>
 						<div class="mix-description">
-							<a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-							<h3>Labore et dolore magnam </h3>
-							<p>Photography</p>
+							<a href="<?php the_permalink(); ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+							<h3><?php the_title(); ?></h3>
+							<?php the_excerpt() ?>
 						</div>
 					</div>
-					<div class="mix id-2" data-ref="mixitup-target">
-						<img src="img/Layer 14.jpg" alt="Arsenal">
-						<div class="mix-description">
-							<a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-							<h3>Labore et dolore magnam </h3>
-							<p>Photography</p>
-						</div>
-					</div>
-					<div class="mix id-1"data-ref="mixitup-target">
-						<img src="img/Layer 15.png" alt="Burton Albion">
-						<div class="mix-description">
-							<a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-							<h3>Labore et dolore magnam </h3>
-							<p>Photography</p>
-						</div>
-					</div>
-					<div class="mix champ id-1" data-ref="mixitup-target">
-						<img src="img/Layer 16.png" alt="Cardiff City">
-						<div class="mix-description">
-							<a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-							<h3>Labore et dolore magnam </h3>
-							<p>Photography</p>
-						</div>
-					</div>
-					<div class="mix id-2" data-ref="mixitup-target">
-						<img src="img/Layer 17.png" alt="Derby County">
-						<div class="mix-description">
-							<a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-							<h3>Labore et dolore magnam </h3>
-							<p>Photography</p>
-						</div>
-					</div>
-					<div class="mix prem id-4"data-ref="mixitup-target">
-						<img src="img/Layer 18.png" alt="Everton">
-						<div class="mix-description">
-							<a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-							<h3>Labore et dolore magnam </h3>
-							<p>Photography</p>
-						</div>
-					</div>
-					<div class="mix id-3" data-ref="mixitup-target">
-						<img src="img/Layer 19.png" alt="Morecambe">
-						<div class="mix-description">
-							<a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-							<h3>Labore et dolore magnam</h3>
-							<p>Photography</p>
-						</div>
-					</div>
-					<div class="mix id-4" data-ref="mixitup-target">
-						<img src="img/Layer 20.png" alt="Norwich City">
-						<div class="mix-description">
-							<a href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>
-							<h3>Labore et dolore magnam </h3>
-							<p>Photography</p>
-						</div>
-					</div>
+
+					<?php endforeach; ?>
+					<?php wp_reset_postdata() ?>
+					
 				</div>
 			</div>
 		</div>

@@ -5577,7 +5577,7 @@ section .section-caption span::after {
   left: 0;
 }
 
-section .section-description {
+.section-caption + p {
   font-family: "Open Sans Semibold",sans-serif;
   font-weight: bold;
   text-align: center;
@@ -5677,6 +5677,7 @@ section .section-description {
 
 #portfolio-items .mix img {
   width: 100%;
+  height: auto;
 }
 
 #portfolio-items .mix-description {
